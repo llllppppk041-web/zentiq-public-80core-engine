@@ -1,0 +1,7 @@
+{
+  "command": "START_2HR_80CORE_TTS_FACTORY",
+  "duration_hours": 2.0,
+  "vms": 20,
+  "cores": 80,
+  "timestamp": 1792708110.467723
+}
