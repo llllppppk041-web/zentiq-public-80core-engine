@@ -1,0 +1,32 @@
+name: 🎙️ Zentiq Public 80-Core (2-Hour) Neural TTS & Prosody Token Factory
+
+on:
+  push:
+    paths:
+      - 'tts_launch_signal.json'
+      - '.github/workflows/tts_80core.yml'
+  workflow_dispatch:
+
+jobs:
+  public-80core-2hr-tts-factory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 140 # 2.33-hour safety ceiling for 2.0-hour nonstop 80-core TTS synthesis!
+    strategy:
+      fail-fast: false
+      max-parallel: 20 # 20 Public Linux VMs x 4 Cores = 80 CPU Cores & 320 GB RAM!
+      matrix:
+        core_node: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    steps:
+      - name: ⚡ Checkout Public TTS Supercomputer
+        uses: actions/checkout@v4
+
+      - name: 🐍 Install Edge-TTS, NumPy, PyArrow & Zstandard
+        run: pip install -q edge-tts numpy aiohttp huggingface_hub hf_transfer pyarrow zstandard
+
+      - name: 🎙️ Execute 2-Hour 80-Core Hinglish TTS & Discrete Audio Tokenization
+        env:
+          CORE_NODE: ${{ matrix.core_node }}
+          TTS_HOURS: "2.0"
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_HUB_ENABLE_HF_TRANSFER: "1"
+        run: python3 tts_worker.py
