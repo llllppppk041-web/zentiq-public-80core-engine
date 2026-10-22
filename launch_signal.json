@@ -1,0 +1,8 @@
+{
+  "command": "START_5HR_80CORE_CHAIN_REACTION_AND_100MB_FORGE",
+  "vms": 20,
+  "cpu_cores": 80,
+  "target_master_file": "ZENTIQ_100MB_CHAIN_REACTION_MASTER.jsonl (100.0 MB)",
+  "cloudflare_250gb_schema_compatible": true,
+  "timestamp": 1792647834.426494
+}
