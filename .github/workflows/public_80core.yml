@@ -1,0 +1,33 @@
+name: ⛓️ Zentiq Public 80-Core (5-Hour) Chain-Reaction & 100MB Master Forge
+
+on:
+  push:
+    paths:
+      - 'launch_signal.json'
+      - '.github/workflows/public_80core.yml'
+  workflow_dispatch:
+
+jobs:
+  public-80core-5hr-chain-reaction-forge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330 # 5.5-hour safety ceiling for 5.0-hour nonstop 80-core fight!
+    strategy:
+      fail-fast: false
+      max-parallel: 20 # 20 Public Linux VMs x 4 Cores = 80 CPU Cores & 320 GB RAM!
+      matrix:
+        core_node: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    steps:
+      - name: ⚡ Checkout Public Supercomputer Code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Install High-Speed Arrow, Zstandard & HF Transfer Engine
+        run: pip install -q aiohttp huggingface_hub hf_transfer pyarrow zstandard
+
+      - name: 🔥 Execute 5-Hour Chain-Reaction Fight + Forge Exact 100MB Master File
+        env:
+          CORE_NODE: ${{ matrix.core_node }}
+          FIGHT_HOURS: "5.0"
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          HF_HUB_ENABLE_HF_TRANSFER: "1"
+        run: python3 chain_reaction_worker.py
