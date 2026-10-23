@@ -1,0 +1,8 @@
+{
+  "command": "START_5HR_10GB_FORGE_AND_CLEAR_CLOUDFLARE",
+  "cloudflare_clean": true,
+  "target_raw_corpus_size": "10.0 GB (ZSTD Level-9 Compressed)",
+  "vms": 20,
+  "cores": 80,
+  "timestamp": 1792727367.188867
+}
